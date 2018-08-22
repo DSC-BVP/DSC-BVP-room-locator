@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!-- icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    
+    <title>Hello, world!</title>
+    
+    <style>
+        @font-face {
+            font-family: 'Product Sans';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+        }
+        
+        body{
+            font-family: 'Product Sans';
+            margin: 0;
+        }
+        
+        .top {
+            height: 15vh;
+            padding-top: 2vh;
+        }
+        
+        .main {
+            min-height: 80vh;
+        }
+        
+        .foot{
+            height: 5vh;
+        }
+        
+        .container-fluid {
+            width: 100%;
+            padding-right: 0px;
+            padding-left: 0px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        
+        .title {
+            font-size: 4vh;
+        }
+        
+        .fa-arrow-left {
+            position: absolute;
+            top: 3.8vh;
+            left: 2vh;
+            font-size: 2.5vh;
+        }
+        
+        .room {
+            background: #0069D9;
+            height: 10vh;
+            width: 25vw;
+            margin: 0.8vw 0.8vw;
+            padding: 2%;
+            color: white;
+            font-size: 3vh;
+        }
+        
+        .no-room {
+            background:#f44336;
+            height: 10vh;
+            width: 70vw;
+            margin: 0.8vw 0.8vw;
+            padding: 2%;
+            color: white;
+            font-size: 3vh;
+        }
+        
+        #list{
+            visibility: hidden;
+        }      
+        
+    </style>
+    
+    
+</head>
+<body>
+    
+    <div class="container-fluid">
+        <div class="top">
+            <p class="title text-center">Room Locator</p>
+            <i class="fas fa-arrow-left" onclick="egg()"></i>
+        </div>
+        
+        <div class="main">
+            <div class="container col-lg-8">
+                <p>
+                    Please Select the Day of the Week and The time of the day to find which rooms are available. 
+                </p>
+                
+                <div class="form-group">
+                    <label for="day">DAY OF THE WEEK</label>
+                    <select class="form-control" id="day">
+                        <option value="0">Monday</option>
+                        <option value="1">Tuesday</option>
+                        <option value="2">Wednesday</option>
+                        <option value="3">Thursday</option>
+                        <option value="4">Friday</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="day">TIME</label>
+                    <select class="form-control" id="time">
+                        <option value="0">8:40</option>
+                        <option value="1">9:35</option>
+                        <option value="2">10:30</option>
+                        <option value="3">11:25</option>
+                        <option value="4">12:20</option>
+                        <option value="5">12:50</option>
+                        <option value="6">1:45</option>
+                        <option value="7">2:40</option>
+                        <option value="8">3:35</option>
+                        <option value="9">4:30</option>
+                        <option value="10">4:40</option>
+                        <option value="11">5:35</option>
+                    </select>
+                </div>
+                
+                <br>
+                
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary mb-2" onclick="create_rooms()">FIND ROOMS</button>
+                </div>
+                
+                <br>
+                
+                <div id="list">
+                    <p>Available Rooms</p>
+                    <div class="container">
+                        <div class="row" id="available">
+                        </div>
+                    </div>
+                </div>
+                
+                <br>
+                
+            </div>
+        </div>
+        
+        <div class="foot">
+            <div class="container h-100 text-center">
+                <p>Made with <i class="fas fa-heart"></i> by <strong>DSCBVP</strong></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>        
+        function get_rooms(){
+            tables = {
+                'B101': [
+                [0, 1, 0, 0, 0, 0, 0, 0, 1, 1],
+                [0, 0, 0, 0, 0, 0, 1, 0, 1, 1],
+                [0, 0, 1, 1, 1, 0, 1, 0, 1, 0],
+                [0, 0, 0, 0, 0, 0, 1, 0, 1, 1],
+                [0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+                ],
+                'B102': [
+                [0, 1, 0, 0, 0, 0, 0, 0, 1, 1],
+                [0, 0, 1, 0, 0, 0, 1, 0, 1, 1],
+                [0, 0, 0, 0, 1, 0, 1, 0, 1, 0],
+                [0, 0, 0, 0, 0, 0, 1, 0, 1, 1],
+                [0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+                ],
+                'B103': [
+                [0, 1, 0, 0, 0, 0, 0, 0, 1, 1],
+                [0, 0, 1, 0, 0, 0, 1, 0, 1, 1],
+                [0, 1, 0, 0, 1, 0, 1, 0, 1, 0],
+                [0, 0, 0, 0, 0, 0, 1, 0, 1, 1],
+                [0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+                ]
+            }
+            day = document.getElementById("day").value;
+            time = document.getElementById("time").value;
+            
+            var rooms = []
+            
+            for (table in tables) {
+                if (tables[table][day][time] === 0) {
+                    rooms.push(table)
+                }
+            }
+            
+            return rooms
+        }
+        
+        function create_rooms(rooms = get_rooms()){
+            
+            var myNode = document.getElementById("available");
+            while (myNode.firstChild) {
+                myNode.removeChild(myNode.firstChild);
+            }
+            
+            if(rooms.length!=0){
+                rooms.forEach((room)=>{
+                    var div = document.createElement('div');
+                    div.textContent = room;
+                    div.setAttribute('class', 'room');
+                    document.getElementById("available").appendChild(div);
+                    document.getElementById("list").style.visibility = 'visible';
+                });
+            }
+            else{
+                var div = document.createElement('div');
+                div.textContent = 'No Rooms available :(';
+                div.setAttribute('class', 'no-room');
+                document.getElementById("available").appendChild(div);
+                document.getElementById("list").style.visibility = 'visible';
+            }
+        }
+
+        function egg() {
+            alert("I see you've found the easter egg! hmm... All i wanna say is that You're a really nice person! Have a great day buddy :)")
+        }              
+    </script>
+    
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
