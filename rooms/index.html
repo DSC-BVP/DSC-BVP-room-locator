@@ -61,7 +61,7 @@
         .room {
             background: #0069D9;
             height: 10vh;
-            width: 25vw;
+            width: 100%;
             margin: 0.8vw 0.8vw;
             padding: 2%;
             color: white;
@@ -71,7 +71,7 @@
         .no-room {
             background:#f44336;
             height: 10vh;
-            width: 70vw;
+            width: 100%;
             margin: 0.8vw 0.8vw;
             padding: 2%;
             color: white;
@@ -81,6 +81,10 @@
         #list{
             visibility: hidden;
         }      
+
+        #someContainer{
+            font-size: 5vh;
+        }
         
     </style>
     
@@ -137,11 +141,14 @@
                 
                 <div id="list">
                     <p>Available Rooms</p>
-                    <div class="container">
+                    <div class="container" id="someContainer">
                         <div class="row" id="available">
+                            
                         </div>
+                        
+
                     </div>
-                </div>
+               </div>
                 
                 <br>
                 
@@ -473,32 +480,87 @@
                 }
             }
             
-            return rooms
+            return rooms;
+        }
+
+        function divide_block(rooms = get_rooms()){
+            
+            var rooms_list= [0,0,0,0];
+            var rooms_A=[];
+            var rooms_B=[];
+            var rooms_C=[];
+            var rooms_D=[];
+            var i;
+
+            for (i = 0; i < rooms.length; i++){
+
+                var obj = rooms[i];
+
+                if ('A'== obj[0]){
+                    rooms_A.push(obj);
+                    rooms_list[0]=rooms_A;
+                }
+                if ('B'== obj[0]){
+                    rooms_B.push(obj);
+                    rooms_list[1]=rooms_B;
+                }
+                if ('C'== obj[0]){
+                    rooms_C.push(obj);
+                    rooms_list[2]=rooms_C;
+                }
+                if ('D'== obj[0]){
+                    rooms_D.push(obj);
+                    rooms_list[3]=rooms_D;
+                }
+            }
+
+
+            return rooms_list;
         }
         
-        function create_rooms(rooms = get_rooms()){
+        function create_rooms(rooms = divide_block()){
             
-            var myNode = document.getElementById("available");
+            var blocks=['A','B','C','D'];
+            var i;
+
+            var myNode = document.getElementById("someContainer");
             while (myNode.firstChild) {
                 myNode.removeChild(myNode.firstChild);
             }
             
-            if(rooms.length!=0){
-                rooms.forEach((room)=>{
+            for (i = 0; i < rooms.length; i++){
+
+                if(rooms[i].length>0){
+
+                    var elem = document.createElement('div');
+                    var str1 = blocks[i];
+                    var str2 = "Block :";
+                    var str = str1.concat(" ", str2);
+                    elem.textContent = str;
+                    document.getElementById("someContainer").appendChild(elem);
+                    
+                    rooms[i].forEach((room)=>{
+                        var div = document.createElement('div');
+                        div.textContent = room;
+                        div.setAttribute('class', 'room');
+                        document.getElementById("someContainer").appendChild(div);
+                        document.getElementById("list").style.visibility = 'visible';
+
+                    });
+                }
+
+                
+            }    
+
+            if(rooms[0]==0 && rooms[1]==0 && rooms[2]==0 && rooms[3]==0){
                     var div = document.createElement('div');
-                    div.textContent = room;
-                    div.setAttribute('class', 'room');
-                    document.getElementById("available").appendChild(div);
+                    div.textContent = 'No Rooms available :(';
+                    div.setAttribute('class', 'no-room');
+                    document.getElementById("someContainer").appendChild(div);
                     document.getElementById("list").style.visibility = 'visible';
-                });
-            }
-            else{
-                var div = document.createElement('div');
-                div.textContent = 'No Rooms available :(';
-                div.setAttribute('class', 'no-room');
-                document.getElementById("available").appendChild(div);
-                document.getElementById("list").style.visibility = 'visible';
-            }
+                }
+
+                
         }
 
         function egg() {
