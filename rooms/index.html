@@ -61,12 +61,11 @@
         .room {
             background: #0069D9;
             height: 10vh;
-            width: 70vh;
+            width: 25vh;
             margin: 0.8vw 0.8vw;
-            padding: 2%;
+            padding: 2% 3%;
             color: white;
             font-size: 3vh;
-            justify-content:end;
         }
         
         .no-room {
@@ -84,7 +83,7 @@
         }      
 
         #someContainer div{ 
-            font-size: 5vh;
+            font-size: 3.5vh;
             padding-top: 4%;
             padding-bottom: 2%;
         }
@@ -556,7 +555,7 @@
             }    
 
             if(rooms[0]==0 && rooms[1]==0 && rooms[2]==0 && rooms[3]==0){
-                    var div = document.createElement('div');
+                    var div = document.createElement('span');
                     div.textContent = 'No Rooms available :(';
                     div.setAttribute('class', 'no-room');
                     document.getElementById("someContainer").appendChild(div);
