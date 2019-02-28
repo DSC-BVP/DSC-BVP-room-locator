@@ -61,9 +61,9 @@
         .room {
             background: #0069D9;
             height: 10vh;
-            width: 25vh;
+            width: 15vh;
             margin: 0.8vw 0.8vw;
-            padding: 2% 3%;
+            padding: 2%;
             color: white;
             font-size: 3vh;
         }
@@ -540,12 +540,16 @@
                     var str = str1.concat(" ", str2);
                     elem.textContent = str;
                     document.getElementById("someContainer").appendChild(elem);
+                    var divelem = document.createElement('div');
+                    divelem.setAttribute('id', str);
+                    divelem.setAttribute('class', 'block row');
+                    document.getElementById("someContainer").appendChild(divelem);
                     
                     rooms[i].forEach((room)=>{
-                        var div = document.createElement('span');
+                        var div = document.createElement('div');
                         div.textContent = room;
                         div.setAttribute('class', 'room');
-                        document.getElementById("someContainer").appendChild(div);
+                        document.getElementById(str).appendChild(div);
                         document.getElementById("list").style.visibility = 'visible';
 
                     });
@@ -555,7 +559,7 @@
             }    
 
             if(rooms[0]==0 && rooms[1]==0 && rooms[2]==0 && rooms[3]==0){
-                    var div = document.createElement('span');
+                    var div = document.createElement('div');
                     div.textContent = 'No Rooms available :(';
                     div.setAttribute('class', 'no-room');
                     document.getElementById("someContainer").appendChild(div);
