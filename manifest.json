@@ -1,0 +1,17 @@
+{
+    "short_name": "Room Loactor",
+    "name": "DSC BVP Room Locator",
+    "icons": [
+      {
+        "src":"/logo.png",
+        "sizes": "140x140",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "index.html",
+    "background_color": "#4285F4",
+    "theme_color": "#0F9D58",
+    "display": "standalone",
+    "orirntation": "portrait"
+  }
+  
