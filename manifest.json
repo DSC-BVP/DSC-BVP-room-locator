@@ -3,7 +3,7 @@
     "name": "DSC BVP Room Locator",
     "icons": [
       {
-        "src":"/logo.png",
+        "src":"logo.png",
         "sizes": "140x140",
         "type": "image/png"
       }
